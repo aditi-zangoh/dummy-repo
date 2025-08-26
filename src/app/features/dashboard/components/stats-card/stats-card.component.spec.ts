@@ -9,7 +9,7 @@ describe('StatsCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StatsCardComponent, CommonModule]
+      imports: [StatsCardComponent, CommonModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(StatsCardComponent);

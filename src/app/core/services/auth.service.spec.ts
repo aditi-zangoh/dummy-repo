@@ -86,7 +86,7 @@ describe('AuthService', () => {
         email: 'test@example.com',
         password: 'password123',
       };
-      const mockResponse: ApiResponse<{token: string}> = {
+      const mockResponse: ApiResponse<{ token: string }> = {
         data: { token: 'login-token' },
         message: 'Login successful',
         success: true,
@@ -94,7 +94,7 @@ describe('AuthService', () => {
 
       apiServiceSpy.post.and.returnValue(of(mockResponse));
 
-      service.login(credentials).subscribe((response) => {
+      service.login(credentials).subscribe(response => {
         expect(response).toEqual(mockResponse);
       });
 
@@ -177,8 +177,8 @@ describe('AuthService', () => {
       expect(currentUser).toEqual(mockUser);
     });
 
-    it('should emit user changes through observable', (done) => {
-      service.currentUser$.subscribe((user) => {
+    it('should emit user changes through observable', done => {
+      service.currentUser$.subscribe(user => {
         if (user) {
           expect(user).toEqual(mockUser);
           done();

@@ -15,19 +15,17 @@ describe('DashboardComponent', () => {
     id: '1',
     email: 'test@example.com',
     name: 'Test User',
-    role: 'admin'
+    role: 'admin',
   };
 
   beforeEach(async () => {
     const authSpy = jasmine.createSpyObj('AuthService', [], {
-      currentUser$: of(mockUser)
+      currentUser$: of(mockUser),
     });
 
     await TestBed.configureTestingModule({
       imports: [DashboardComponent, CommonModule, StatsCardComponent],
-      providers: [
-        { provide: AuthService, useValue: authSpy }
-      ]
+      providers: [{ provide: AuthService, useValue: authSpy }],
     }).compileComponents();
 
     // authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
@@ -48,7 +46,7 @@ describe('DashboardComponent', () => {
       totalUsers: 1234,
       activeUsers: 987,
       revenue: 45678,
-      growth: 12.5
+      growth: 12.5,
     };
 
     expect(component.stats).toEqual(expectedStats);

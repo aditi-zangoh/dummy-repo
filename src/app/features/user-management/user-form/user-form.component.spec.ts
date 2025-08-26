@@ -13,12 +13,12 @@ describe('UserFormComponent', () => {
     id: '1',
     email: 'test@example.com',
     name: 'Test User',
-    role: 'user'
+    role: 'user',
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserFormComponent, ReactiveFormsModule, CommonModule]
+      imports: [UserFormComponent, ReactiveFormsModule, CommonModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserFormComponent);
@@ -82,7 +82,7 @@ describe('UserFormComponent', () => {
     component.userForm.patchValue({
       name: 'John Doe',
       email: 'john@example.com',
-      role: 'admin'
+      role: 'admin',
     });
 
     component.onSubmit();
@@ -90,7 +90,7 @@ describe('UserFormComponent', () => {
     expect(component.saveUser.emit).toHaveBeenCalledWith({
       name: 'John Doe',
       email: 'john@example.com',
-      role: 'admin'
+      role: 'admin',
     });
   });
 
@@ -100,7 +100,7 @@ describe('UserFormComponent', () => {
     component.userForm.patchValue({
       name: '',
       email: 'invalid-email',
-      role: 'user'
+      role: 'user',
     });
 
     component.onSubmit();
@@ -145,7 +145,7 @@ describe('UserFormComponent', () => {
     component.userForm.patchValue({
       name: '',
       email: '',
-      role: 'user'
+      role: 'user',
     });
 
     component.onSubmit();

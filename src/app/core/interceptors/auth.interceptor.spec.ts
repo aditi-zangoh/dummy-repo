@@ -12,9 +12,7 @@ describe('authInterceptor', () => {
     const authSpy = jasmine.createSpyObj('AuthService', ['getToken']);
 
     TestBed.configureTestingModule({
-      providers: [
-        { provide: AuthService, useValue: authSpy }
-      ]
+      providers: [{ provide: AuthService, useValue: authSpy }],
     });
 
     authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
@@ -31,16 +29,18 @@ describe('authInterceptor', () => {
       authInterceptor(mockRequest, mockHandler);
     });
 
-    expect(mockHandler).toHaveBeenCalledWith(jasmine.objectContaining({
-      headers: jasmine.objectContaining({
-        lazyUpdate: jasmine.arrayContaining([
-          jasmine.objectContaining({
-            name: 'Authorization',
-            value: `Bearer ${mockToken}`
-          })
-        ])
+    expect(mockHandler).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        headers: jasmine.objectContaining({
+          lazyUpdate: jasmine.arrayContaining([
+            jasmine.objectContaining({
+              name: 'Authorization',
+              value: `Bearer ${mockToken}`,
+            }),
+          ]),
+        }),
       })
-    }));
+    );
   });
 
   it('should not modify request when no token exists', () => {
@@ -80,17 +80,19 @@ describe('authInterceptor', () => {
       authInterceptor(mockRequest, mockHandler);
     });
 
-    expect(mockHandler).toHaveBeenCalledWith(jasmine.objectContaining({
-      method: 'POST',
-      headers: jasmine.objectContaining({
-        lazyUpdate: jasmine.arrayContaining([
-          jasmine.objectContaining({
-            name: 'Authorization',
-            value: `Bearer ${mockToken}`
-          })
-        ])
+    expect(mockHandler).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        method: 'POST',
+        headers: jasmine.objectContaining({
+          lazyUpdate: jasmine.arrayContaining([
+            jasmine.objectContaining({
+              name: 'Authorization',
+              value: `Bearer ${mockToken}`,
+            }),
+          ]),
+        }),
       })
-    }));
+    );
   });
 
   it('should preserve existing headers when adding Authorization', () => {
@@ -104,16 +106,18 @@ describe('authInterceptor', () => {
       authInterceptor(mockRequest, mockHandler);
     });
 
-    expect(mockHandler).toHaveBeenCalledWith(jasmine.objectContaining({
-      method: 'PUT',
-      headers: jasmine.objectContaining({
-        lazyUpdate: jasmine.arrayContaining([
-          jasmine.objectContaining({
-            name: 'Authorization',
-            value: `Bearer ${mockToken}`
-          })
-        ])
+    expect(mockHandler).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        method: 'PUT',
+        headers: jasmine.objectContaining({
+          lazyUpdate: jasmine.arrayContaining([
+            jasmine.objectContaining({
+              name: 'Authorization',
+              value: `Bearer ${mockToken}`,
+            }),
+          ]),
+        }),
       })
-    }));
+    );
   });
 });

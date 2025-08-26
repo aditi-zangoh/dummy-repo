@@ -45,7 +45,7 @@ describe('authGuard', () => {
 
     expect(result).toBe(false);
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/login'], {
-      queryParams: { returnUrl: '/protected-route' }
+      queryParams: { returnUrl: '/protected-route' },
     });
   });
 
@@ -57,7 +57,7 @@ describe('authGuard', () => {
 
     expect(result).toBe(false);
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/login'], {
-      queryParams: { returnUrl: '/dashboard/settings' }
+      queryParams: { returnUrl: '/dashboard/settings' },
     });
   });
 });
