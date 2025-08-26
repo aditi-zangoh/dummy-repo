@@ -86,7 +86,7 @@ describe('AuthService', () => {
         email: 'test@example.com',
         password: 'password123',
       };
-      const mockResponse: ApiResponse<any> = {
+      const mockResponse: ApiResponse<{token: string}> = {
         data: { token: 'login-token' },
         message: 'Login successful',
         success: true,

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 
 import { ApiService, ApiResponse } from './api.service';
 
@@ -26,13 +26,13 @@ describe('ApiService', () => {
 
   describe('GET requests', () => {
     it('should make successful GET request', () => {
-      const mockResponse: ApiResponse<any> = {
+      const mockResponse: ApiResponse<{id: number; name: string}> = {
         data: { id: 1, name: 'Test' },
         message: 'Success',
         success: true,
       };
 
-      service.get<any>('test-endpoint').subscribe((response) => {
+      service.get<{id: number; name: string}>('test-endpoint').subscribe((response) => {
         expect(response).toEqual(mockResponse);
       });
 
@@ -45,13 +45,13 @@ describe('ApiService', () => {
 
     it('should make GET request with params', () => {
       const params = new HttpParams().set('page', '1').set('limit', '10');
-      const mockResponse: ApiResponse<any> = {
+      const mockResponse: ApiResponse<unknown[]> = {
         data: [],
         message: 'Success',
         success: true,
       };
 
-      service.get<any>('users', params).subscribe((response) => {
+      service.get<unknown[]>('users', params).subscribe((response) => {
         expect(response).toEqual(mockResponse);
       });
 
@@ -61,13 +61,13 @@ describe('ApiService', () => {
     });
 
     it('should retry GET request twice on failure then succeed', () => {
-      const mockResponse: ApiResponse<any> = {
+      const mockResponse: ApiResponse<{id: number}> = {
         data: { id: 1 },
         message: 'Success',
         success: true,
       };
 
-      service.get<any>('retry-test').subscribe((response) => {
+      service.get<{id: number}>('retry-test').subscribe((response) => {
         expect(response).toEqual(mockResponse);
       });
 
@@ -86,13 +86,13 @@ describe('ApiService', () => {
   describe('POST requests', () => {
     it('should make successful POST request', () => {
       const postData = { name: 'Test User', email: 'test@example.com' };
-      const mockResponse: ApiResponse<any> = {
+      const mockResponse: ApiResponse<{id: number; name: string; email: string}> = {
         data: { id: 1, ...postData },
         message: 'Created successfully',
         success: true,
       };
 
-      service.post<any>('users', postData).subscribe((response) => {
+      service.post<{id: number; name: string; email: string}>('users', postData).subscribe((response) => {
         expect(response).toEqual(mockResponse);
       });
 
@@ -106,13 +106,13 @@ describe('ApiService', () => {
   describe('PUT requests', () => {
     it('should make successful PUT request', () => {
       const putData = { id: 1, name: 'Updated User' };
-      const mockResponse: ApiResponse<any> = {
+      const mockResponse: ApiResponse<{id: number; name: string}> = {
         data: putData,
         message: 'Updated successfully',
         success: true,
       };
 
-      service.put<any>('users/1', putData).subscribe((response) => {
+      service.put<{id: number; name: string}>('users/1', putData).subscribe((response) => {
         expect(response).toEqual(mockResponse);
       });
 
@@ -125,13 +125,13 @@ describe('ApiService', () => {
 
   describe('DELETE requests', () => {
     it('should make successful DELETE request', () => {
-      const mockResponse: ApiResponse<any> = {
+      const mockResponse: ApiResponse<null> = {
         data: null,
         message: 'Deleted successfully',
         success: true,
       };
 
-      service.delete<any>('users/1').subscribe((response) => {
+      service.delete<null>('users/1').subscribe((response) => {
         expect(response).toEqual(mockResponse);
       });
 
@@ -147,7 +147,7 @@ describe('ApiService', () => {
         message: 'Connection failed',
       });
 
-      service.get<any>('error-test').subscribe({
+      service.get<unknown>('error-test').subscribe({
         next: () => fail('Expected an error'),
         error: (error) => {
           expect(error.message).toContain('Client Error: Connection failed');
@@ -159,7 +159,7 @@ describe('ApiService', () => {
     });
 
     it('should handle server-side errors', () => {
-      service.get<any>('server-error-test').subscribe({
+      service.get<unknown>('server-error-test').subscribe({
         next: () => fail('Expected an error'),
         error: (error) => {
           expect(error.message).toContain('Server Error: 404');

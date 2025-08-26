@@ -25,8 +25,8 @@ describe('CapitalizePipe', () => {
   });
 
   it('should handle null and undefined', () => {
-    expect(pipe.transform(null as any)).toBe('');
-    expect(pipe.transform(undefined as any)).toBe('');
+    expect(pipe.transform(null)).toBe('');
+    expect(pipe.transform(undefined)).toBe('');
   });
 
   it('should handle single character', () => {

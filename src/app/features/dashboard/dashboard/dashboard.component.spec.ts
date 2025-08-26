@@ -9,7 +9,7 @@ import { StatsCardComponent } from '../components/stats-card/stats-card.componen
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
-  let authServiceSpy: jasmine.SpyObj<AuthService>;
+  // let authServiceSpy: jasmine.SpyObj<AuthService>;
 
   const mockUser: User = {
     id: '1',
@@ -30,7 +30,7 @@ describe('DashboardComponent', () => {
       ]
     }).compileComponents();
 
-    authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
+    // authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
   });
 
   beforeEach(() => {
