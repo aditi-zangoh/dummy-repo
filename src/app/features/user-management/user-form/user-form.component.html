@@ -1,0 +1,52 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+  <div class="form-group">
+    <label for="name">Name *</label>
+    <input
+      id="name"
+      type="text"
+      formControlName="name"
+      class="form-control"
+      [class.is-invalid]="getFieldError('name')"
+      placeholder="Enter user name"
+    />
+    <div class="invalid-feedback" *ngIf="getFieldError('name')">
+      {{ getFieldError('name') }}
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email *</label>
+    <input
+      id="email"
+      type="email"
+      formControlName="email"
+      class="form-control"
+      [class.is-invalid]="getFieldError('email')"
+      placeholder="Enter email address"
+    />
+    <div class="invalid-feedback" *ngIf="getFieldError('email')">
+      {{ getFieldError('email') }}
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="role">Role *</label>
+    <select id="role" formControlName="role" class="form-control" [class.is-invalid]="getFieldError('role')">
+      <option value="user">User</option>
+      <option value="admin">Admin</option>
+      <option value="moderator">Moderator</option>
+    </select>
+    <div class="invalid-feedback" *ngIf="getFieldError('role')">
+      {{ getFieldError('role') }}
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn btn-secondary" (click)="onCancel()" [disabled]="isLoading">Cancel</button>
+
+    <button type="submit" class="btn btn-primary" [disabled]="isLoading || userForm.invalid">
+      <span *ngIf="isLoading" class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+      {{ isLoading ? 'Saving...' : 'Save User' }}
+    </button>
+  </div>
+</form>
