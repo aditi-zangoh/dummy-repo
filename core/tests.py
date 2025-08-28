@@ -284,22 +284,30 @@ class TestAdminFunctionality(TestCase):
         )
 
     def test_category_admin_post_count(self):
+        from django.contrib.admin import AdminSite
+
         from core.admin import CategoryAdmin
 
-        admin_instance = CategoryAdmin(Category, None)
+        admin_site = AdminSite()
+        admin_instance = CategoryAdmin(Category, admin_site)
         result = admin_instance.post_count(self.category)
         self.assertEqual(result, 1)
 
     def test_tag_admin_post_count(self):
+        from django.contrib.admin import AdminSite
+
         from core.admin import TagAdmin
 
         tag = Tag.objects.create(name="Test Tag", slug="test-tag")
         self.post.tags.add(tag)
-        admin_instance = TagAdmin(Tag, None)
+        admin_site = AdminSite()
+        admin_instance = TagAdmin(Tag, admin_site)
         result = admin_instance.post_count(tag)
         self.assertEqual(result, 1)
 
     def test_comment_admin_preview(self):
+        from django.contrib.admin import AdminSite
+
         from core.admin import CommentAdmin
 
         comment = Comment.objects.create(
@@ -307,7 +315,8 @@ class TestAdminFunctionality(TestCase):
             author=self.user,
             content="This is a long comment that should be truncated at some point to test the preview functionality",
         )
-        admin_instance = CommentAdmin(Comment, None)
+        admin_site = AdminSite()
+        admin_instance = CommentAdmin(Comment, admin_site)
         preview = admin_instance.comment_preview(comment)
         self.assertTrue(preview.endswith("..."))
         self.assertTrue(len(preview) <= 53)
@@ -661,17 +670,23 @@ class TestAdminQuerysets(TestCase):
         )
 
     def test_post_admin_queryset(self):
+        from django.contrib.admin import AdminSite
+
         from core.admin import PostAdmin
 
-        admin_instance = PostAdmin(Post, None)
+        admin_site = AdminSite()
+        admin_instance = PostAdmin(Post, admin_site)
         queryset = admin_instance.get_queryset(None)
         # Should use select_related and prefetch_related
         self.assertTrue(queryset.query.select_related)
 
     def test_comment_admin_queryset(self):
+        from django.contrib.admin import AdminSite
+
         from core.admin import CommentAdmin
 
-        admin_instance = CommentAdmin(Comment, None)
+        admin_site = AdminSite()
+        admin_instance = CommentAdmin(Comment, admin_site)
         queryset = admin_instance.get_queryset(None)
         # Should use select_related
         self.assertTrue(queryset.query.select_related)

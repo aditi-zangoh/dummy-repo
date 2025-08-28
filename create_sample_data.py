@@ -1,6 +1,9 @@
 #!/usr/bin/env python
+"""Script to create sample data for Django blog application."""
+
 import os
 from datetime import timedelta
+from typing import Any, Dict, List
 
 import django
 from django.utils import timezone
@@ -14,7 +17,8 @@ from django.contrib.auth.models import User  # noqa: E402
 from core.models import Category, Comment, Post, Profile, Tag  # noqa: E402
 
 
-def create_sample_data():
+def create_sample_data() -> None:
+    """Create sample data for the Django blog application."""
     print("Creating sample data...")
 
     # Create users
@@ -108,7 +112,7 @@ def create_sample_data():
             print(f"Created tag: {tag_name}")
 
     # Create posts
-    posts_data = [
+    posts_data: List[Dict[str, Any]] = [
         {
             "title": "Getting Started with Django: A Complete Beginner's Guide",
             "slug": "getting-started-django-complete-beginners-guide",
