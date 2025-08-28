@@ -171,6 +171,7 @@ ignore_missing_imports = true
 module = [
     "django.*",
     "*.migrations.*",
+    "decouple",
 ]
 ignore_errors = true
 
