@@ -1,9 +1,6 @@
 import django
 import pytest
 from django.conf import settings
-from django.contrib.auth.models import User
-
-from core.models import Category, Post, Profile, Tag
 
 
 def pytest_configure(config):  # noqa: ARG001
@@ -35,8 +32,25 @@ def pytest_configure(config):  # noqa: ARG001
                 "django.contrib.messages.middleware.MessageMiddleware",
                 "django.middleware.clickjacking.XFrameOptionsMiddleware",
             ],
+            ROOT_URLCONF="core.urls",
+            TEMPLATES=[
+                {
+                    "BACKEND": "django.template.backends.django.DjangoTemplates",
+                    "DIRS": [],
+                    "APP_DIRS": True,
+                    "OPTIONS": {
+                        "context_processors": [
+                            "django.template.context_processors.debug",
+                            "django.template.context_processors.request",
+                            "django.contrib.auth.context_processors.auth",
+                            "django.contrib.messages.context_processors.messages",
+                        ],
+                    },
+                },
+            ],
             SECRET_KEY="test-key",
             USE_TZ=True,
+            LOGIN_URL="/login/",
         )
     django.setup()
 
@@ -44,6 +58,8 @@ def pytest_configure(config):  # noqa: ARG001
 @pytest.fixture
 def user():
     """Create a test user"""
+    from django.contrib.auth.models import User
+
     return User.objects.create_user(
         username="testuser", email="test@example.com", password="testpass123"
     )
@@ -52,6 +68,8 @@ def user():
 @pytest.fixture
 def category():
     """Create a test category"""
+    from core.models import Category
+
     return Category.objects.create(
         name="Test Category", slug="test-category", description="A test category"
     )
@@ -60,12 +78,16 @@ def category():
 @pytest.fixture
 def tag():
     """Create a test tag"""
+    from core.models import Tag
+
     return Tag.objects.create(name="Test Tag", slug="test-tag")
 
 
 @pytest.fixture
 def post(user, category):
     """Create a test post"""
+    from core.models import Post
+
     return Post.objects.create(
         title="Test Post",
         slug="test-post",
@@ -80,4 +102,6 @@ def post(user, category):
 @pytest.fixture
 def profile(user):
     """Create a test profile"""
+    from core.models import Profile
+
     return Profile.objects.create(user=user, bio="Test bio", location="Test City")

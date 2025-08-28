@@ -3,7 +3,7 @@
 
 import os
 from datetime import timedelta
-from typing import Any, Dict, List
+from typing import Any
 
 import django
 from django.utils import timezone
@@ -112,7 +112,7 @@ def create_sample_data() -> None:
             print(f"Created tag: {tag_name}")
 
     # Create posts
-    posts_data: List[Dict[str, Any]] = [
+    posts_data: list[dict[str, Any]] = [
         {
             "title": "Getting Started with Django: A Complete Beginner's Guide",
             "slug": "getting-started-django-complete-beginners-guide",
