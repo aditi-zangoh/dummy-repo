@@ -27,6 +27,12 @@ class Profile(TimeStampedModel):
     website = models.URLField(blank=True)
     phone = models.CharField(max_length=20, blank=True)
     avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
+    is_verified = models.BooleanField(
+        default=False, help_text="User verification status"
+    )
+    social_media_links = models.JSONField(
+        default=dict, blank=True, help_text="Social media profiles"
+    )
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
