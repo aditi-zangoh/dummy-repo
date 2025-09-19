@@ -9,6 +9,15 @@ class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
     verbose_name_plural = "Profile"
+    fields = [
+        "bio",
+        "location",
+        "website",
+        "phone",
+        "avatar",
+        "is_verified",
+        "social_media_links",
+    ]
 
 
 class UserAdmin(BaseUserAdmin):
