@@ -155,8 +155,8 @@ class PostForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields[
-            "slug"
-        ].help_text = "URL-friendly version of the title. Leave blank to auto-generate."
+        self.fields["slug"].help_text = (
+            "URL-friendly version of the title. Leave blank to auto-generate."
+        )
         self.fields["excerpt"].help_text = "Brief description of the post (optional)."
         self.fields["tags"].help_text = "Select relevant tags for this post."
